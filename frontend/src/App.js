@@ -36,9 +36,9 @@ function App() {
     }
   };
 
-  const handleLogin = (userId) => {
+  const handleLogin = async (userId) => {
     localStorage.setItem('userId', userId);
-    fetchUser(userId);
+    await fetchUser(userId);
   };
 
   const handleLogout = () => {
@@ -88,7 +88,7 @@ function App() {
             element={
               isAuthenticated ? 
               <Navigate to="/dashboard" /> : 
-              <Register onRegister={handleLogin} />
+              <Register onLogin={handleLogin} />
             } 
           />
           <Route 

@@ -16,7 +16,7 @@ function Login({ onLogin }) {
 
     try {
       const response = await authAPI.login(email, password);
-      onLogin(response.data.user.id);
+      await onLogin(response.data.user.id);
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed. Please try again.');
