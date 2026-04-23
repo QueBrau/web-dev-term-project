@@ -1,1 +1,1 @@
-# web-dev-term-project
+# Frat App - MVP
