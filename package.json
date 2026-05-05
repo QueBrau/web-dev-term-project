@@ -1,0 +1,16 @@
+{
+  "name": "frat-app",
+  "version": "1.0.0",
+  "description": "Fraternity management application",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "build": "npm run install-backend && npm run install-frontend && cd frontend && npm run build",
+    "dev-backend": "cd backend && npm start",
+    "dev-frontend": "cd frontend && npm start"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
