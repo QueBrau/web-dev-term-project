@@ -24,16 +24,18 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Frat App API' });
-});
-
 app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentsRoutes);
 app.use('/api/dues', duesRoutes);
 app.use('/api/events', eventsRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/calendar', calendarRoutes);
+
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
