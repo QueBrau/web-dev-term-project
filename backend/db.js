@@ -14,9 +14,7 @@ const pool = new Pool({
 
 pool.connect((err, client, release) => {
   if (err) {
-    console.error('Error connecting to the database:', err.stack);
   } else {
-    console.log('Connected to Neon');
     release();
   }
 });

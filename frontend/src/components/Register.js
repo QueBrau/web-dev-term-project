@@ -28,14 +28,10 @@ function Register({ onLogin }) {
     setLoading(true);
 
     try {
-      console.log('Submitting registration with data:', formData);
       const response = await authAPI.register(formData);
-      console.log('Registration response:', response.data);
       await onLogin(response.data.user.id);
       navigate('/dashboard');
     } catch (err) {
-      console.error('Registration error:', err);
-      console.error('Error response:', err.response);
       setError(err.response?.data?.error || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);

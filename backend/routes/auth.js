@@ -26,7 +26,6 @@ router.post('/register', async (req, res) => {
       user: newUser.rows[0]
     });
   } catch (error) {
-    console.error('Registration error:', error);
     res.status(500).json({ error: 'Registration failed' });
   }
 });
@@ -61,7 +60,6 @@ router.post('/login', async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Login error:', error);
     res.status(500).json({ error: 'Login failed' });
   }
 });

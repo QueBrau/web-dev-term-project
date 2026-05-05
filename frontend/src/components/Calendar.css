@@ -1,0 +1,234 @@
+.calendar-integration {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.calendar-integration h3 {
+  margin-top: 0;
+  color: #e0e0e0;
+}
+
+.calendar-integration p {
+  margin: 10px 0;
+  color: #b0b0b0;
+}
+
+.calendar-connected {
+  color: #27ae60 !important;
+  font-weight: 500;
+}
+
+.calendar-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.calendar-integration button {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.calendar-sync-status {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #333;
+}
+
+.create-event-form {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.create-event-form h3 {
+  margin-top: 0;
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.create-event-form input,
+.create-event-form textarea,
+.create-event-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+.create-event-form textarea {
+  resize: vertical;
+}
+
+.create-event-form button[type="submit"] {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.create-event-form button[type="submit"]:hover:not(:disabled) {
+  background: #2980b9;
+}
+
+.create-event-form button[type="submit"]:disabled {
+  background: #555;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.events-list {
+  margin-top: 30px;
+}
+
+.events-list h3 {
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.event-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+  border-color: #444;
+}
+
+.event-card h4 {
+  margin: 0 0 10px 0;
+  color: #f0f0f0;
+  font-size: 20px;
+}
+
+.event-date,
+.event-location {
+  color: #b0b0b0;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.event-description {
+  color: #d0d0d0;
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.event-type {
+  display: inline-block;
+  background: #2a2a2a;
+  color: #3498db;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: 1px solid #444;
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #2980b9;
+}
+
+.btn-primary:disabled {
+  background: #555;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-secondary {
+  background: #555;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #666;
+}
+
+.btn-small {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.btn-small:hover {
+  background: #229954;
+}
+
+.synced-badge {
+  display: inline-block;
+  background: #27ae60;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .create-event-form,
+  .event-card {
+    padding: 15px;
+  }
+
+  .calendar-integration button,
+  .calendar-buttons button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .calendar-buttons {
+    flex-direction: column;
+  }
+}

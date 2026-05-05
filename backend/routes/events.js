@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
     
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching events:', error);
     res.status(500).json({ error: 'Failed to fetch events' });
   }
 });
@@ -33,7 +32,6 @@ router.post('/', async (req, res) => {
       event: result.rows[0]
     });
   } catch (error) {
-    console.error('Error creating event:', error);
     res.status(500).json({ error: 'Failed to create event' });
   }
 });

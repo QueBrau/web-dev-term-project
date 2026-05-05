@@ -6,6 +6,8 @@ function Documents() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [uploadMode, setUploadMode] = useState('file');
+  const [selectedFile, setSelectedFile] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -35,22 +37,43 @@ function Documents() {
     });
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      await documentsAPI.create(formData);
+      if (uploadMode === 'file') {
+        if (!selectedFile) {
+          setError('Please select a file to upload');
+          return;
+        }
+
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', selectedFile);
+        uploadFormData.append('title', formData.title);
+        uploadFormData.append('description', formData.description);
+        uploadFormData.append('documentType', formData.documentType);
+
+        await documentsAPI.uploadFile(uploadFormData);
+      } else {
+        await documentsAPI.create(formData);
+      }
+
       setFormData({
         title: '',
         description: '',
         fileUrl: '',
         documentType: 'meeting-minutes'
       });
+      setSelectedFile(null);
       setShowForm(false);
       fetchDocuments();
     } catch (err) {
-      setError('Failed to upload document');
+      setError(err.response?.data?.error || 'Failed to upload document');
     }
   };
 
@@ -70,6 +93,30 @@ function Documents() {
       {showForm && (
         <div className="card">
           <h2>Upload New Document</h2>
+          
+          <div style={{ marginBottom: '1rem' }}>
+            <label style={{ marginRight: '1rem' }}>
+              <input
+                type="radio"
+                name="uploadMode"
+                value="file"
+                checked={uploadMode === 'file'}
+                onChange={(e) => setUploadMode(e.target.value)}
+              />
+              {' '}Upload File
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="uploadMode"
+                value="url"
+                checked={uploadMode === 'url'}
+                onChange={(e) => setUploadMode(e.target.value)}
+              />
+              {' '}Provide URL
+            </label>
+          </div>
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="title">Title</label>
@@ -93,18 +140,37 @@ function Documents() {
               />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="fileUrl">File URL</label>
-              <input
-                type="url"
-                id="fileUrl"
-                name="fileUrl"
-                value={formData.fileUrl}
-                onChange={handleChange}
-                placeholder="https://example.com/document.pdf"
-                required
-              />
-            </div>
+            {uploadMode === 'file' ? (
+              <div className="form-group">
+                <label htmlFor="file">Choose File</label>
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  onChange={handleFileChange}
+                  accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.xlsx,.xls,.ppt,.pptx"
+                  required
+                />
+                {selectedFile && (
+                  <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#888' }}>
+                    Selected: {selectedFile.name} ({(selectedFile.size / 1024 / 1024).toFixed(2)} MB)
+                  </p>
+                )}
+              </div>
+            ) : (
+              <div className="form-group">
+                <label htmlFor="fileUrl">File URL</label>
+                <input
+                  type="url"
+                  id="fileUrl"
+                  name="fileUrl"
+                  value={formData.fileUrl}
+                  onChange={handleChange}
+                  placeholder="https://example.com/document.pdf"
+                  required
+                />
+              </div>
+            )}
 
             <div className="form-group">
               <label htmlFor="documentType">Document Type</label>
@@ -136,7 +202,13 @@ function Documents() {
               <p><strong>Type:</strong> {doc.document_type}</p>
               <p>{doc.description}</p>
               <p><small>Uploaded: {new Date(doc.created_at).toLocaleDateString()}</small></p>
-              <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
+              <a 
+                href={doc.file_url.startsWith('/') 
+                  ? `http://localhost:5001${doc.file_url}` 
+                  : doc.file_url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
                 <button style={{ marginTop: '1rem' }}>View Document</button>
               </a>
             </div>

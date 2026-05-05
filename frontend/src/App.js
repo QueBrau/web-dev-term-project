@@ -29,7 +29,6 @@ function App() {
       setUser(response.data);
       setIsAuthenticated(true);
     } catch (err) {
-      console.error('Failed to fetch user:', err);
       localStorage.removeItem('userId');
     } finally {
       setLoading(false);
